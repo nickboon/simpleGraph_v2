@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tape test/*.tests.js",
-    "watch": "watchify ./ -o test/bundle.js -t [ babelify --presets [ \"@babel/preset-env\"] ]"
+    "watch": "watchify ./test/index -o test/bundle.js -t [ babelify --presets [ \"@babel/preset-env\"] ]"
   },
   "author": "Nick Boon",
   "license": "ISC",

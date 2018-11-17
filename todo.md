@@ -1,10 +1,5 @@
 #ToDo
 
-- Graph with no parameters should build an svg with default origin and axes.
-- User can specify dimesions
-- User can specify origin
-- User can specify html container element id
-
 - API doc system?
 
 - User can add figures
@@ -12,6 +7,8 @@
     - Polygon
     - QuadraticBezier
     - CubicBezier
+
+- User can specify axes
     
 - User can add point
 

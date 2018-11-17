@@ -1,0 +1,11 @@
+html {
+    font-family: sans-serif;
+    color: grey;
+}
+
+.simplegraph {
+    width: 400px;
+    height: 260px;
+    margin: 50px auto;
+    outline: 1px solid grey;
+}
