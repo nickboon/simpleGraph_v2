@@ -1,0 +1,36 @@
+{
+  "name": "simplegraph",
+  "version": "1.0.0",
+  "description": "Functions to draw lines against cartesian axis using svg elements.",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.tests.js",
+    "watch": "watchify ./ -o test/bundle.js -t [ babelify --presets [ \"@babel/preset-env\"] ]"
+  },
+  "author": "Nick Boon",
+  "license": "ISC",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "babelify": "^9.0.0",
+    "tape": "^4.9.1",
+    "watchify": "^3.11.0"
+  }
+}
