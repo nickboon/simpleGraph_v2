@@ -149,3 +149,18 @@ test('graph.draw([graph.polygon(points)])', assert => {
     );
     assert.end();
 });
+
+test('graph.draw([graph.quadraticBezier(points)])', assert => {
+    const graph = new Sut();
+    assert.true(
+        graph.draw([
+            graph.quadraticBezier(
+                graph.point(50, 100),
+                graph.point(undefined, 100),
+                graph.point()
+            )
+        ]).includes('<path d="M350 50 Q300 50, 300 150" stroke="#000" fill="none" opacity="0.5" />'),
+        'should return an svg including a quadratic bezier described by the given points.'
+    );
+    assert.end();
+});

@@ -28,6 +28,10 @@ class Elements {
     polygon(points, colour = defaults.get(this).colour, opacity = defaults.get(this).opacity) {
         return `<polygon points="${points.map(p => `${p.x},${p.y}`).join(' ')}" fill="${colour}" opacity="${opacity}" />`;
     }
+
+    quadraticBezier(pointA, pointB, pointC, colour = defaults.get(this).colour, opacity = defaults.get(this).opacity) {
+        return `<path d="M${pointA.x} ${pointA.y} Q${pointB.x} ${pointB.y}, ${pointC.x} ${pointC.y}" stroke="${colour}" fill="none" opacity="${opacity}" />`;
+    }
 }
 
 module.exports = Elements;

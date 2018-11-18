@@ -3,6 +3,7 @@ const Vector = require('./vector');
 const Point = require('./point');
 const Line = require('./line');
 const Polygon = require('./polygon');
+const QuadraticBezier = require('./quadraticBezier');
 
 const defaults = new WeakMap();
 const dimensions = new WeakMap();
@@ -87,6 +88,13 @@ class Graph {
 
     polygon(points) {
         return new Polygon(points);
+    }
+
+    quadraticBezier(pointA = this.point(), pointB = this.point(), pointC = this.point()) {
+
+        console.log('points', pointA, pointB, pointC);
+
+        return new QuadraticBezier([pointA, pointB, pointC]);
     }
 
     draw(figures = []) {
