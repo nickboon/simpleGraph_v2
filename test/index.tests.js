@@ -164,3 +164,19 @@ test('graph.draw([graph.quadraticBezier(points)])', assert => {
     );
     assert.end();
 });
+
+test('graph.draw([graph.cubicBezier(points)])', assert => {
+    const graph = new Sut();
+    assert.true(
+        graph.draw([
+            graph.cubicBezier(
+                graph.point(50, 100),
+                graph.point(undefined, 100),
+                graph.point(),
+                graph.point(-50, 50)
+            )
+        ]).includes('<path d="M350 50 C300 50, 300 150, 250 100" stroke="#000" fill="none" opacity="0.5" />'),
+        'should return an svg including a cubic bezier described by the given points.'
+    );
+    assert.end();
+});

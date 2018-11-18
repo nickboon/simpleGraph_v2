@@ -19,5 +19,11 @@ graph2.draw([
         graph2.point(50, 100),
         graph2.point(undefined, 100),
         graph2.point()
+    ),
+    graph2.cubicBezier(
+        graph2.point(50, 100),
+        graph2.point(undefined, 100),
+        graph2.point(),
+        graph2.point(-50, 50)
     )
 ]);

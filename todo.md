@@ -2,10 +2,6 @@
 
 - API doc system?
 
-- User can add figures
-    - QuadraticBezier
-    - CubicBezier
-
 - User can specify axes
     
 - User can add point

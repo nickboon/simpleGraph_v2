@@ -32,6 +32,10 @@ class Elements {
     quadraticBezier(pointA, pointB, pointC, colour = defaults.get(this).colour, opacity = defaults.get(this).opacity) {
         return `<path d="M${pointA.x} ${pointA.y} Q${pointB.x} ${pointB.y}, ${pointC.x} ${pointC.y}" stroke="${colour}" fill="none" opacity="${opacity}" />`;
     }
+
+    cubicBezier(pointA, pointB, pointC, pointD, colour = defaults.get(this).colour, opacity = defaults.get(this).opacity) {
+        return `<path d="M${pointA.x} ${pointA.y} C${pointB.x} ${pointB.y}, ${pointC.x} ${pointC.y}, ${pointD.x} ${pointD.y}" stroke="${colour}" fill="none" opacity="${opacity}" />`;
+    }
 }
 
 module.exports = Elements;
