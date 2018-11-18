@@ -7,5 +7,3 @@
 - User can add point
 
 - Display coordinates for figures
-
-- User can add text

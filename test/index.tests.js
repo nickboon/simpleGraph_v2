@@ -180,3 +180,19 @@ test('graph.draw([graph.cubicBezier(points)])', assert => {
     );
     assert.end();
 });
+
+test('graph.draw([graph.text(text, point)])', assert => {
+    const graph = new Sut();
+
+    console.log(graph.draw([
+        graph.text('text')
+    ]));
+
+    assert.true(
+        graph.draw([
+            graph.text('text')
+        ]).includes('<text x="300" y="150" fill="#000" opacity="0.5" text-anchor="undefined" font-size="undefined">text</text>'),
+        'should return an svg including text at the origin.'
+    );
+    assert.end();
+});

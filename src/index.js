@@ -5,6 +5,7 @@ const Line = require('./line');
 const Polygon = require('./polygon');
 const QuadraticBezier = require('./quadraticBezier');
 const CubicBezier = require('./cubicBezier');
+const Text = require('./text');
 
 const defaults = new WeakMap();
 const dimensions = new WeakMap();
@@ -27,7 +28,10 @@ class Graph {
         height = 300,
         htmlContainerElementId = 'simplegraph',
         colour = '#000',
-        opacity = '0.5'
+        opacity = '0.5',
+        fontSize,
+        textAnchor
+
     } = {}) {
         defaults.set(this, {
             width,
@@ -36,7 +40,9 @@ class Graph {
         });
         elementFactory.set(this, new Elements({
             colour,
-            opacity
+            opacity,
+            fontSize,
+            textAnchor
         }));
 
         return this;
@@ -77,6 +83,10 @@ class Graph {
         this.origin = new Vector(x, y);
 
         return this;
+    }
+
+    text(text, point = this.point()) {
+        return new Text(text, point);
     }
 
     point(x, y) {

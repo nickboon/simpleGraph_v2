@@ -21,6 +21,18 @@ class Elements {
         return '</svg>';
     }
 
+    text(
+        text,
+        point, {
+            opacity = defaults.get(this).opacity,
+            colour = defaults.get(this).colour,
+            fontSize = defaults.get(this).fontSize,
+            textAnchor = defaults.get(this).textAnchor
+        } = {}
+    ) {
+        return `<text x="${point.x}" y="${point.y}" fill="${colour}" opacity="${opacity}" text-anchor="${textAnchor}" font-size="${fontSize}">${text}</text>`;
+    };
+
     line(pointA, pointB, colour = defaults.get(this).colour, opacity = defaults.get(this).opacity) {
         return `<path d="M${pointA.x} ${pointA.y} L${pointB.x} ${pointB.y}" stroke="${colour}" opacity="${opacity}" />`;
     }

@@ -1,6 +1,5 @@
 const test = require('tape');
 const Sut = require('../src/point');
-const Graph = require('../src/index');
 const Vector = require('../src/vector');
 
 test('new Point(origin)', assert => {
