@@ -12,6 +12,7 @@ const expected = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
         >
             <path d="M0 150 L600 150" stroke="#000" opacity="0.5" />
             <path d="M300 0 L300 300" stroke="#000" opacity="0.5" />
+            
         </svg>`;
 
 test('new Graph().draw()', assert => {
@@ -91,9 +92,45 @@ test('new Graph().setOrigin(undefined, 500).draw()', assert => {
 test('new Graph().setOrigin(100,100).point()', assert => {
     const graph = new Sut();
     assert.deepEqual(
+        graph.point(),
+        graph.origin,
+        'should return a point at the default origin.'
+    );
+    assert.end();
+});
+
+test('new Graph().setOrigin(100,100).point()', assert => {
+    const graph = new Sut();
+    assert.deepEqual(
         graph.setOrigin(100, 100).point(),
         graph.origin,
-        'should return a point at the origin.'
+        'should return a point at the given origin.'
+    );
+    assert.end();
+});
+
+test('new Graph().line(pointA)', assert => {
+    const graph = new Sut();
+    const pointA = graph.point(100, 100);
+    assert.deepEqual(
+        graph.line(pointA), {
+            points: [
+                pointA,
+                graph.origin
+            ]
+        }, 'should return a line between the given point and the default origin.'
+    );
+    assert.end();
+});
+
+test('graph.draw([graph.line(pointA)])', assert => {
+    const graph = new Sut();
+    const pointA = graph.point(100, 100);
+    assert.true(
+        graph.draw([
+            graph.line(pointA)
+        ]).includes('<path d="M400 50 L300 150" stroke="#000" opacity="0.5" />'),
+        'should return an svg including a line between the given point and the default origin.'
     );
     assert.end();
 });

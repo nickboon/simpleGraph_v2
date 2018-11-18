@@ -3,7 +3,6 @@
 - API doc system?
 
 - User can add figures
-    - Line
     - Polygon
     - QuadraticBezier
     - CubicBezier

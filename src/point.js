@@ -3,8 +3,8 @@ class Point {
         if (typeof (origin) !== 'object')
             throw new Error('You must pass the origin to a new Point.');
 
-        this.x = x + origin.x;
-        this.y = y + origin.y;
+        this.x = origin.x + x;
+        this.y = origin.y - y;
     }
 }
 

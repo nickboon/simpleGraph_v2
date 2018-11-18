@@ -1,10 +1,13 @@
 const Graph = require('../src/index');
 
 new Graph().draw();
-new Graph()
+const graph2 = new Graph()
     .setHtmlContainerElement('simplegraph2')
     .setDefaults({
         colour: 'red',
         opacity: 0.1
-    }).setOrigin(50, 210)
-    .draw();
+    }).setOrigin(50, 210);
+
+graph2.draw([
+    graph2.line(graph2.point(100, 100))
+]);
