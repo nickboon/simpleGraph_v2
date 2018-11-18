@@ -2,6 +2,7 @@ const Elements = require('./elements');
 const Vector = require('./vector');
 const Point = require('./point');
 const Line = require('./line');
+const Polygon = require('./polygon');
 
 const defaults = new WeakMap();
 const dimensions = new WeakMap();
@@ -82,6 +83,10 @@ class Graph {
 
     line(pointA = this.point(), pointB = this.point()) {
         return new Line([pointA, pointB]);
+    }
+
+    polygon(points) {
+        return new Polygon(points);
     }
 
     draw(figures = []) {

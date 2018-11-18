@@ -134,3 +134,18 @@ test('graph.draw([graph.line(pointA)])', assert => {
     );
     assert.end();
 });
+
+test('graph.draw([graph.polygon(points)])', assert => {
+    const graph = new Sut();
+    assert.true(
+        graph.draw([
+            graph.polygon([
+                graph.point(50, 100),
+                graph.point(undefined, 100),
+                graph.point()
+            ])
+        ]).includes('<polygon points="350,50 300,50 300,150" fill="#000" opacity="0.5" />'),
+        'should return an svg including a polygon described by the given points.'
+    );
+    assert.end();
+});
