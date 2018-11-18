@@ -87,3 +87,13 @@ test('new Graph().setOrigin(undefined, 500).draw()', assert => {
     );
     assert.end();
 });
+
+test('new Graph().setOrigin(100,100).point()', assert => {
+    const graph = new Sut();
+    assert.deepEqual(
+        graph.setOrigin(100, 100).point(),
+        graph.origin,
+        'should return a point at the origin.'
+    );
+    assert.end();
+});

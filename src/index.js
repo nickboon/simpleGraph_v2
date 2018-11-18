@@ -1,10 +1,10 @@
 const Elements = require('./elements');
 const Vector = require('./vector');
+const Point = require('./point');
 
 const defaults = new WeakMap();
 const dimensions = new WeakMap();
 const elementFactory = new WeakMap();
-const origin = new WeakMap();
 const htmlContainerElement = new WeakMap();
 
 class Graph {
@@ -70,7 +70,7 @@ class Graph {
     }
 
     setOrigin(x = dimensions.get(this).width / 2, y = dimensions.get(this).height / 2) {
-        origin.set(this, new Vector(x, y));
+        this.origin = new Vector(x, y);
 
         return this;
     }
@@ -84,7 +84,7 @@ class Graph {
         const {
             x,
             y
-        } = origin.get(this);
+        } = this.origin;
 
         const svg = `${create.openSvg(width,height)}
             ${create.line(new Vector(0, y), new Vector(width, y))}
@@ -96,6 +96,10 @@ class Graph {
             html.innerHTML = svg;
 
         return svg;
+    }
+
+    point(x, y) {
+        return new Point(this.origin, x, y);
     }
 }
 
