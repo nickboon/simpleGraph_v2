@@ -1,10 +1,9 @@
 class Polygon {
     constructor(points) {
         this.points = points;
-    }
-
-    elements(elementFactory) {
-        return elementFactory.polygon(this.points);
+        this.elements = [
+            (elementFactory, origin) => elementFactory.polygon(this.points.map(p => p.toAbsolute(origin)))
+        ];
     }
 }
 

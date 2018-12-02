@@ -27,7 +27,7 @@ class Elements {
             opacity = defaults.get(this).opacity,
             colour = defaults.get(this).colour,
             fontSize = defaults.get(this).fontSize,
-            textAnchor = defaults.get(this).textAnchor
+            textAnchor = defaults.get(this).textAnchor,
         } = {}
     ) {
         return `<text x="${point.x}" y="${point.y}" fill="${colour}" opacity="${opacity}" text-anchor="${textAnchor}" font-size="${fontSize}">${text}</text>`;

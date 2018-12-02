@@ -1,10 +1,9 @@
 class CubicBezier {
     constructor(points) {
         this.points = points;
-    }
-
-    elements(elementFactory) {
-        return elementFactory.cubicBezier(...this.points);
+        this.elements = [
+            (elementFactory, origin) => elementFactory.cubicBezier(...this.points.map(p => p.toAbsolute(origin)))
+        ];
     }
 }
 

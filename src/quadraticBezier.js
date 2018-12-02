@@ -1,10 +1,9 @@
 class QuadraticBezier {
     constructor(points) {
         this.points = points;
-    }
-
-    elements(elementFactory) {
-        return elementFactory.quadraticBezier(...this.points);
+        this.elements = [
+            (elementFactory, origin) => elementFactory.quadraticBezier(...this.points.map(p => p.toAbsolute(origin)))
+        ];
     }
 }
 

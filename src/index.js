@@ -1,7 +1,8 @@
 const Elements = require('./elements');
-const Vector = require('./vector');
 const Point = require('./point');
 const Line = require('./line');
+const HorizontalLine = require('./horizontalLine');
+const VerticalLine = require('./verticalLine');
 const Polygon = require('./polygon');
 const QuadraticBezier = require('./quadraticBezier');
 const CubicBezier = require('./cubicBezier');
@@ -31,7 +32,6 @@ class Graph {
         opacity = '0.5',
         fontSize,
         textAnchor
-
     } = {}) {
         defaults.set(this, {
             width,
@@ -44,7 +44,6 @@ class Graph {
             fontSize,
             textAnchor
         }));
-
         return this;
     }
 
@@ -66,7 +65,6 @@ class Graph {
             clientHeight
         } = html;
         this.setDimensions(clientWidth, clientHeight || clientWidth / 2);
-
         return this;
     }
 
@@ -75,13 +73,11 @@ class Graph {
             width,
             height
         });
-
         return this;
     }
 
     setOrigin(x = dimensions.get(this).width / 2, y = dimensions.get(this).height / 2) {
-        this.origin = new Vector(x, y);
-
+        this.origin = new Point(x, y);
         return this;
     }
 
@@ -89,12 +85,20 @@ class Graph {
         return new Text(text, point);
     }
 
-    point(x, y) {
-        return new Point(this.origin, x, y);
+    point(x = 0, y = 0) {
+        return new Point(x, y);
     }
 
     line(pointA = this.point(), pointB = this.point()) {
         return new Line([pointA, pointB]);
+    }
+
+    horizontalLine(y = 0) {
+        return new HorizontalLine(dimensions.get(this).width, y);
+    }
+
+    verticalLine(x = 0) {
+        return new VerticalLine(dimensions.get(this).height, x);
     }
 
     polygon(points) {
@@ -126,9 +130,9 @@ class Graph {
         } = this.origin;
 
         const svg = `${create.openSvg(width,height)}
-            ${create.line(new Vector(0, y), new Vector(width, y))}
-            ${create.line(new Vector(x, 0), new Vector(x, height))}
-            ${figures.map(f => f.elements(create)).join('')}
+            ${create.line(new Point(0, y), new Point(width, y))}
+            ${create.line(new Point(x, 0), new Point(x, height))}
+            ${figures.map(f => f.elements.map(e => e(create, this.origin))).join('')}
         ${create.closeSvg()}`;
 
         const html = htmlContainerElement.get(this);

@@ -89,22 +89,33 @@ test('new Graph().setOrigin(undefined, 500).draw()', assert => {
     assert.end();
 });
 
-test('new Graph().setOrigin(100,100).point()', assert => {
+test('new Graph().point()', assert => {
     const graph = new Sut();
-    assert.deepEqual(
-        graph.point(),
-        graph.origin,
-        'should return a point at the default origin.'
+    const actual = graph.point();
+    assert.equal(
+        actual.x,
+        0,
+        'should return a point with default x 0.'
+    );
+    assert.equal(
+        actual.y,
+        0,
+        'should return a point with default y 0.'
     );
     assert.end();
 });
 
 test('new Graph().setOrigin(100,100).point()', assert => {
     const graph = new Sut();
-    assert.deepEqual(
-        graph.setOrigin(100, 100).point(),
-        graph.origin,
-        'should return a point at the given origin.'
+    assert.equal(
+        graph.setOrigin(100, 200).point().x,
+        0,
+        'should return a point with default x 0.'
+    );
+    assert.equal(
+        graph.setOrigin(100, 200).point().y,
+        0,
+        'should return a point with point with default y 0.'
     );
     assert.end();
 });
@@ -113,23 +124,44 @@ test('new Graph().line(pointA)', assert => {
     const graph = new Sut();
     const pointA = graph.point(100, 100);
     assert.deepEqual(
-        graph.line(pointA), {
-            points: [
-                pointA,
-                graph.origin
-            ]
-        }, 'should return a line between the given point and the default origin.'
+        graph.line(pointA).points,
+        [
+            pointA,
+            graph.point()
+        ],
+        'should return a line between the given point and the default origin.'
     );
     assert.end();
 });
 
 test('graph.draw([graph.line(pointA)])', assert => {
     const graph = new Sut();
-    const pointA = graph.point(100, 100);
     assert.true(
         graph.draw([
-            graph.line(pointA)
+            graph.line(graph.point(100, 100))
         ]).includes('<path d="M400 50 L300 150" stroke="#000" opacity="0.5" />'),
+        'should return an svg including a line between the given point and the default origin.'
+    );
+    assert.end();
+});
+
+test('graph.draw([graph.horizontalLine(y)])', assert => {
+    const graph = new Sut();
+    assert.true(
+        graph.draw([
+            graph.horizontalLine(100)
+        ]).includes('<path d="M0 50 L600 50" stroke="#000" opacity="0.5" />'),
+        'should return an svg including a line between the given point and the default origin.'
+    );
+    assert.end();
+});
+
+test('graph.draw([graph.verticalLine(x)])', assert => {
+    const graph = new Sut();
+    assert.true(
+        graph.draw([
+            graph.verticalLine(100)
+        ]).includes('<path d="M400 0 L400 300" stroke="#000" opacity="0.5" />'),
         'should return an svg including a line between the given point and the default origin.'
     );
     assert.end();
@@ -183,11 +215,6 @@ test('graph.draw([graph.cubicBezier(points)])', assert => {
 
 test('graph.draw([graph.text(text, point)])', assert => {
     const graph = new Sut();
-
-    console.log(graph.draw([
-        graph.text('text')
-    ]));
-
     assert.true(
         graph.draw([
             graph.text('text')

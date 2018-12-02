@@ -1,0 +1,17 @@
+svg = 400 x 600
+
+o = (a40, a40) 
+p = (r100,r200)  
+p = (a140, a-160)  = p.plot(o)
+
+if you have vertical line you have to mix worlds to specify
+
+vl = |(x, o actual)(x, h actual)|
+
+this has to be translated into relative coordinates to find divisions
+
+so  if we want a vert line at graph 30
+with origin (a40, a40)
+given (r30, a0)(r30, a600)
+translated becomes
+(r30, r-40)(r30, r560)
