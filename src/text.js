@@ -1,5 +1,3 @@
-const Point = require('./point');
-
 class Text {
     constructor(text, point) {
         this.text = text;

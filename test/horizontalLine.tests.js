@@ -6,15 +6,6 @@ const Elements = require('../src/elements');
 const Point = require('../src/point');
 const Sut = require('../src/horizontalLine');
 
-test('new HorizontalLine(width, yIntercept)', assert => {
-    assert.deepEqual(
-        new Sut(600, 300).points,
-        [new Point(0, 300), new Point(600, 300)],
-        'should return a horizontal line across the graph at the given yIntercept.'
-    );
-    assert.end();
-});
-
 test('new HorizontalLine(width, yIntercept).elements(elementFactory, origin)', assert => {
     assert.equal(
         new Sut(600, 300).elements[0](new Elements(), new Point()),

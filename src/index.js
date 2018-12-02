@@ -31,8 +31,8 @@ class Graph {
         htmlContainerElementId = 'simplegraph',
         colour = '#000',
         opacity = '0.5',
-        fontSize,
-        textAnchor
+        fontSize = 10,
+        textAnchor = 'start'
     } = {}) {
         defaults.set(this, {
             width,
@@ -94,8 +94,14 @@ class Graph {
         return new Text(text, point);
     }
 
-    point(x = 0, y = 0) {
-        return new Point(x, y);
+    point(x = 0, y = 0, {
+        fontSize = defaults.get(this).fontSize,
+        textAnchor = defaults.get(this).textAnchor
+    } = {}) {
+        return new Point(x, y, {
+            fontSize,
+            textAnchor
+        });
     }
 
     line(pointA = this.point(), pointB = this.point()) {

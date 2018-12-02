@@ -11,7 +11,7 @@ const graph2 = new Graph()
     })
     .setOrigin(50, 210)
     .setAxes(50);
-
+const myPoint = graph2.point(-50, 50)
 const figures = [
     graph2.line(graph2.point(100, 100)),
     graph2.polygon([
@@ -28,9 +28,10 @@ const figures = [
         graph2.point(50, 100),
         graph2.point(undefined, 100),
         graph2.point(),
-        graph2.point(-50, 50)
+        myPoint
     ),
     graph2.text('Test'),
+    myPoint
 ];
 
 graph2.draw(figures);

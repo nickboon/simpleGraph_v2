@@ -1,7 +1,33 @@
 class Point {
-    constructor(x = 0, y = 0) {
+    constructor(x = 0, y = 0, {
+        fontSize,
+        textAnchor
+    } = {}) {
         this.x = x;
         this.y = y;
+        this.textOptions = {
+            fontSize,
+            textAnchor
+        };
+        this.elements = [];
+
+        this.label();
+    }
+
+    label(text = `${this.x}, ${this.y}`, {
+        fontSize = this.textOptions.fontSize,
+        textAnchor = this.textOptions.textAnchor
+    } = {}) {
+
+
+        this.elements[0] = (elementFactory, origin) => elementFactory.text(
+            text,
+            this.toAbsolute(origin), {
+                fontSize,
+                textAnchor
+            }
+        );
+        return this;
     }
 
     toAbsolute(origin) {

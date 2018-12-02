@@ -6,15 +6,6 @@ const Elements = require('../src/elements');
 const Point = require('../src/point');
 const Sut = require('../src/verticalLine');
 
-test('new VerticalLine(height, xIntercept)', assert => {
-    assert.deepEqual(
-        new Sut(600, 400).points,
-        [new Point(400, 0), new Point(400, 600)],
-        'should return a vertical line across the graph at the given x.'
-    );
-    assert.end();
-});
-
 test('new VerticalLine(height, xIntercept).elements[0](elementFactory, origin)', assert => {
     assert.equal(
         new Sut(600, 400).elements[0](new Elements(), new Point()),

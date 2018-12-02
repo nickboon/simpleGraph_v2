@@ -123,20 +123,6 @@ test('new Graph().setOrigin(100,100).point()', assert => {
     assert.end();
 });
 
-test('new Graph().line(pointA)', assert => {
-    const graph = new Sut();
-    const pointA = graph.point(100, 100);
-    assert.deepEqual(
-        graph.line(pointA).points,
-        [
-            pointA,
-            graph.point()
-        ],
-        'should return a line between the given point and the default origin.'
-    );
-    assert.end();
-});
-
 test('graph.draw([graph.line(pointA)])', assert => {
     const graph = new Sut();
     assert.true(
@@ -221,7 +207,7 @@ test('graph.draw([graph.text(text, point)])', assert => {
     assert.true(
         graph.draw([
             graph.text('text')
-        ]).includes('<text x="300" y="150" fill="#000" opacity="0.5" text-anchor="undefined" font-size="undefined">text</text>'),
+        ]).includes('<text x="300" y="150" fill="#000" opacity="0.5" text-anchor="start" font-size="10">text</text>'),
         'should return an svg including text at the origin.'
     );
     assert.end();
