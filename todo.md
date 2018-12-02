@@ -1,8 +1,6 @@
 #ToDo
 
 - API doc system?
-
-- User can specify axes
     
 - User can add point
 

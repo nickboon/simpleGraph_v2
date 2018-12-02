@@ -1,16 +1,10 @@
 const test = require('tape');
+const {
+    assertEqualIgnoreWhiteSpace
+} = require('./tapeHelpers');
 const Elements = require('../src/elements');
 const Point = require('../src/point');
 const Sut = require('../src/verticalLine');
-
-const assertEqualIgnoreWhiteSpace = (assert, actual, expected, message) => {
-    const whitespace = /\s+/g;
-    assert.equal(
-        actual.replace(whitespace, ''),
-        expected.replace(whitespace, ''),
-        message
-    );
-};
 
 test('new VerticalLine(height, xIntercept)', assert => {
     assert.deepEqual(
@@ -74,11 +68,11 @@ test('new VerticalLine(300).setDivisions(100)', assert => {
 });
 
 test('new VerticalLine(300, 100).setDivisions(100)', assert => {
-    const setDivsions = () => new Sut(300, 100).setDivisions(100);
-    setDivsions();
+    const setDivisions = () => new Sut(300, 100).setDivisions(100);
+    setDivisions();
     assertEqualIgnoreWhiteSpace(
         assert,
-        setDivsions().elements[2](new Elements, new Point()), `
+        setDivisions().elements[2](new Elements, new Point()), `
         <textx="90"y="0"fill="undefined"opacity="undefined"text-anchor="end"font-size="10">0</text>
         <pathd="M1000L900"stroke="undefined"opacity="undefined"/>`,
         'should be include a mark at origin.'

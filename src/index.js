@@ -12,6 +12,7 @@ const defaults = new WeakMap();
 const dimensions = new WeakMap();
 const elementFactory = new WeakMap();
 const htmlContainerElement = new WeakMap();
+const axes = new WeakMap();
 
 class Graph {
     constructor(width, height) {
@@ -21,7 +22,7 @@ class Graph {
         else
             this.setDimensions(width, height);
 
-        this.setOrigin();
+        this.setOrigin().setAxes();
     }
 
     setDefaults({
@@ -81,6 +82,14 @@ class Graph {
         return this;
     }
 
+    setAxes(increment = 0) {
+        axes.set(this, [
+            this.horizontalLine().setDivisions(increment),
+            this.verticalLine().setDivisions(increment)
+        ]);
+        return this;
+    }
+
     text(text, point = this.point()) {
         return new Text(text, point);
     }
@@ -128,12 +137,15 @@ class Graph {
             x,
             y
         } = this.origin;
+        const getFigureElements = (figuresArray) =>
+            figuresArray.map(f => f.elements.map(e => e(create, this.origin))).join('\n\t');
 
-        const svg = `${create.openSvg(width,height)}
-            ${create.line(new Point(0, y), new Point(width, y))}
-            ${create.line(new Point(x, 0), new Point(x, height))}
-            ${figures.map(f => f.elements.map(e => e(create, this.origin))).join('')}
-        ${create.closeSvg()}`;
+        const svg = [
+            create.openSvg(width, height),
+            `\t${getFigureElements(axes.get(this))}`,
+            `\t${getFigureElements(figures)}`,
+            create.closeSvg()
+        ].join('\n');
 
         const html = htmlContainerElement.get(this);
         if (html)
