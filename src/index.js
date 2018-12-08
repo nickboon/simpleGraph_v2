@@ -1,5 +1,6 @@
 const Elements = require('./elements');
 const Point = require('./point');
+const Cross = require('./cross');
 const Line = require('./line');
 const HorizontalLine = require('./horizontalLine');
 const VerticalLine = require('./verticalLine');
@@ -32,13 +33,15 @@ class Graph {
         colour = '#000',
         opacity = '0.5',
         fontSize = 10,
-        textAnchor = 'start'
+        textAnchor = 'start',
+        crossRadius = fontSize
     } = {}) {
         defaults.set(this, {
             width,
             height,
             htmlContainerElementId,
-            fontSize
+            fontSize,
+            crossRadius
         });
         elementFactory.set(this, new Elements({
             colour,
@@ -103,6 +106,10 @@ class Graph {
             fontSize,
             textAnchor
         });
+    }
+
+    cross(point = this.Point(), radius = defaults.get(this).crossRadius) {
+        return new Cross(point, radius);
     }
 
     line(pointA = this.point(), pointB = this.point()) {

@@ -11,7 +11,6 @@ class Label {
         this.offsetY = offsetY;
         this.fontSize = fontSize;
         this.textAnchor = textAnchor || this.defaultTextAnchorForOffset;
-
         this.elements = [];
 
         this.setTextElement();

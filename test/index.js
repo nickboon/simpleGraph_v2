@@ -36,7 +36,8 @@ const figures = [
         offsetX: 0,
         offsetY: -30,
         textAnchor: 'end'
-    }).offset(20, 20)
+    }).offset(20, 20),
+    graph2.cross(myPoint)
 ];
 
 graph2.draw(figures);
