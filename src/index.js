@@ -37,7 +37,8 @@ class Graph {
         defaults.set(this, {
             width,
             height,
-            htmlContainerElementId
+            htmlContainerElementId,
+            fontSize
         });
         elementFactory.set(this, new Elements({
             colour,
@@ -96,7 +97,7 @@ class Graph {
 
     point(x = 0, y = 0, {
         fontSize = defaults.get(this).fontSize,
-        textAnchor = defaults.get(this).textAnchor
+        textAnchor
     } = {}) {
         return new Point(x, y, {
             fontSize,

@@ -11,7 +11,7 @@ const graph2 = new Graph()
     })
     .setOrigin(50, 210)
     .setAxes(50);
-const myPoint = graph2.point(-50, 50)
+const myPoint = graph2.point(-50, 50);
 const figures = [
     graph2.line(graph2.point(100, 100)),
     graph2.polygon([
@@ -31,14 +31,17 @@ const figures = [
         myPoint
     ),
     graph2.text('Test'),
-    myPoint
+    myPoint,
+    graph2.point(-50, -50).label(undefined, {
+        offsetX: 0,
+        offsetY: -30,
+        textAnchor: 'end'
+    }).offset(20, 20)
 ];
 
 graph2.draw(figures);
 
-const svg = graph2
+graph2
     .setOrigin(100, 150)
     .setAxes(80)
     .draw(figures);
-
-console.log(svg);

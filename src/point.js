@@ -1,3 +1,7 @@
+const Label = require('./label');
+
+const label = new WeakMap();
+
 class Point {
     constructor(x = 0, y = 0, {
         fontSize,
@@ -5,28 +9,32 @@ class Point {
     } = {}) {
         this.x = x;
         this.y = y;
-        this.textOptions = {
-            fontSize,
-            textAnchor
-        };
-        this.elements = [];
-
+        this.fontSize = fontSize;
+        this.textAnchor = textAnchor;
         this.label();
     }
 
     label(text = `${this.x}, ${this.y}`, {
-        fontSize = this.textOptions.fontSize,
-        textAnchor = this.textOptions.textAnchor
+        fontSize = this.fontSize,
+        textAnchor,
+        offsetX = 0,
+        offsetY = 0
     } = {}) {
-
-
-        this.elements[0] = (elementFactory, origin) => elementFactory.text(
+        const newLabel = new Label(
             text,
-            this.toAbsolute(origin), {
+            [this], {
                 fontSize,
-                textAnchor
-            }
-        );
+                textAnchor,
+                offsetX,
+                offsetY
+            });
+        label.set(this, newLabel);
+        this.elements = newLabel.elements;
+        return this;
+    }
+
+    offset(x, y) {
+        label.get(this).setOffsetElements(x, y);
         return this;
     }
 
