@@ -30,14 +30,19 @@ const figures = [
         graph2.point(),
         myPoint
     ),
-    graph2.text('Test'),
-    myPoint,
-    graph2.point(-50, -50).label(undefined, {
+    graph2.point(),
+    myPoint.label(),
+    graph2.point(-50, -50)
+    .label(undefined, {
         offsetX: 0,
-        offsetY: -30,
-        textAnchor: 'end'
-    }).offset(20, 20),
-    graph2.cross(myPoint)
+        offsetY: -2,
+        textAnchor: 'middle'
+    }).label(undefined, {
+        offsetX: 0,
+        offsetY: 0,
+        fontSize: 20,
+        textAnchor: 'middle'
+    }).label().offset(0, 1)
 ];
 
 graph2.draw(figures);

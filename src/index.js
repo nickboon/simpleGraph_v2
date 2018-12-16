@@ -1,13 +1,11 @@
 const Elements = require('./elements');
 const Point = require('./point');
-const Cross = require('./cross');
 const Line = require('./line');
 const HorizontalLine = require('./horizontalLine');
 const VerticalLine = require('./verticalLine');
 const Polygon = require('./polygon');
 const QuadraticBezier = require('./quadraticBezier');
 const CubicBezier = require('./cubicBezier');
-const Text = require('./text');
 
 const defaults = new WeakMap();
 const dimensions = new WeakMap();
@@ -34,14 +32,15 @@ class Graph {
         opacity = '0.5',
         fontSize = 10,
         textAnchor = 'start',
-        crossRadius = fontSize
+        radius = fontSize
     } = {}) {
         defaults.set(this, {
             width,
             height,
             htmlContainerElementId,
             fontSize,
-            crossRadius
+            textAnchor,
+            radius
         });
         elementFactory.set(this, new Elements({
             colour,
@@ -94,22 +93,17 @@ class Graph {
         return this;
     }
 
-    text(text, point = this.point()) {
-        return new Text(text, point);
-    }
-
     point(x = 0, y = 0, {
         fontSize = defaults.get(this).fontSize,
-        textAnchor
+        textAnchor = defaults.get(this).textAnchor,
+        radius = defaults.get(this).radius
     } = {}) {
-        return new Point(x, y, {
+        const newPoint = new Point(x, y, {
             fontSize,
-            textAnchor
+            textAnchor,
+            radius
         });
-    }
-
-    cross(point = this.Point(), radius = defaults.get(this).crossRadius) {
-        return new Cross(point, radius);
+        return newPoint;
     }
 
     line(pointA = this.point(), pointB = this.point()) {

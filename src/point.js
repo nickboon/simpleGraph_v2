@@ -5,36 +5,54 @@ const label = new WeakMap();
 class Point {
     constructor(x = 0, y = 0, {
         fontSize,
-        textAnchor
+        textAnchor,
+        radius,
     } = {}) {
         this.x = x;
         this.y = y;
         this.fontSize = fontSize;
         this.textAnchor = textAnchor;
-        this.label();
+        this.radius = radius;
+        const newLabel = new Label(
+            `${this.x}, ${this.y}`,
+            [this], {
+                offsetX: 0,
+                offsetY: 0,
+                fontSize,
+                textAnchor,
+                radius
+            });
+        label.set(this, newLabel);
+        this.elements = newLabel.elements;
     }
 
     label(text = `${this.x}, ${this.y}`, {
         fontSize = this.fontSize,
-        textAnchor,
+        textAnchor = this.textAnchor,
+        radius = this.radius,
         offsetX = 0,
         offsetY = 0
     } = {}) {
-        const newLabel = new Label(
-            text,
-            [this], {
-                fontSize,
-                textAnchor,
-                offsetX,
-                offsetY
-            });
-        label.set(this, newLabel);
-        this.elements = newLabel.elements;
+        const updatedLabel = label.get(this);
+        updatedLabel.fontSize = fontSize;
+        updatedLabel.textAnchor = textAnchor;
+        updatedLabel.radius = radius;
+        updatedLabel.elements.length = 0;
+        if (!offsetX && !offsetY)
+            updatedLabel.setCross();
+        else
+            updatedLabel.setOffset(offsetX, offsetY);
+
+        updatedLabel.setText(text);
+
         return this;
     }
 
-    offset(x, y) {
-        label.get(this).setOffsetElements(x, y);
+    offset(x = 0, y = 0) {
+        const updatedLabel = label.get(this);
+        updatedLabel.elements.length = 0;
+        updatedLabel.setOffset(x, y);
+        updatedLabel.setText();
         return this;
     }
 
