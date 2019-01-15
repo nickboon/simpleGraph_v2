@@ -1,17 +1,18 @@
-const Text = require('./text');
+const Figure = require('./figure');
 
-class Line {
+class Line extends Figure {
     constructor(points) {
-        this.points = points;
-        this.elements = [
+        super(points);
+        this.elements.push(
             (elementFactory, origin) => elementFactory.line(this.points[0].toAbsolute(origin), this.points[1].toAbsolute(origin))
-        ];
+        );
     }
-    get x() {
+
+    get dx() {
         return this.points[1].x - this.points[0].x;
     }
 
-    get y() {
+    get dy() {
         return this.points[1].y - this.points[0].y;
     }
 
@@ -27,9 +28,9 @@ class Line {
     }
 
     getDivisionElements(elementFactory, point, offsetPoint, textPoint, text) {
-        return `
-        ${elementFactory.text(text, textPoint, this.textOptions)}
-        ${elementFactory.line(point, offsetPoint)}`;
+        // return `
+        // ${elementFactory.text(text, textPoint, this.textOptions)}
+        // ${elementFactory.line(point, offsetPoint)}`;
     }
 }
 

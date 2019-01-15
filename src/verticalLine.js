@@ -27,29 +27,29 @@ class VerticalLine extends Line {
     setDivisions(increment = 0) {
         if (increment <= 0) return this;
 
-        const x = this.xIntercept;
-        const getDivisionElementsForY = (y, elementFactory, origin) =>
-            this.getDivisionElements(
-                elementFactory,
-                origin.copy(x, -y),
-                origin.copy(x - this.textOptions.fontSize, -y),
-                origin.copy(x - this.textOptions.fontSize, -y),
-                y);
-
-        const getDivisionElementsForYBetween0And = (limit, elementFactory, origin) =>
-            Divisions.getIncrementsInRange(0, limit, increment)
-            .map(y => getDivisionElementsForY(y, elementFactory, origin))
-            .join('');
+        const x = this.points[0].x;
+        const maxY = this.points[1].y;
+        const labelOptions = {
+            fontSize: this.textOptions.fontSize,
+            textAnchor: this.textOptions.textAnchor,
+            offsetX: -1
+        };
+        const label = (increments, elementFactory, origin) => {
+            return increments
+                .reduce((acc, y) => acc.concat(...new Point(x, y).label(y, labelOptions).elements), [])
+                .map(f => f(elementFactory, origin)).join('\n\t');
+        };
 
         this.elements.push(
-            (elementFactory, origin) =>
-            getDivisionElementsForYBetween0And(origin.y, elementFactory, origin) +
-            getDivisionElementsForYBetween0And(origin.y - this.points[1].y, elementFactory, origin)
+            (elementFactory, origin) => label(
+                Divisions.getIncrementsInRange(0, origin.y, increment),
+                elementFactory,
+                origin),
+            (elementFactory, origin) => label(
+                Divisions.getIncrementsInRange(0, origin.y - maxY, increment),
+                elementFactory,
+                origin)
         );
-
-        if (x != 0)
-            this.elements.push((elementFactory, origin) =>
-                getDivisionElementsForY(0, elementFactory, origin));
 
         return this;
     }

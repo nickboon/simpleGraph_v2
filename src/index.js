@@ -147,7 +147,6 @@ class Graph {
         } = this.origin;
         const getFigureElements = (figuresArray) =>
             figuresArray.map(f => f.elements.map(e => e(create, this.origin))).join('\n\t');
-
         const svg = [
             create.openSvg(width, height),
             `\t${getFigureElements(axes.get(this))}`,

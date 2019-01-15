@@ -1,9 +1,10 @@
-class Polygon {
+const Figure = require('./figure');
+
+class Polygon extends Figure {
     constructor(points) {
-        this.points = points;
-        this.elements = [
-            (elementFactory, origin) => elementFactory.polygon(this.points.map(p => p.toAbsolute(origin)))
-        ];
+        super(points);
+        this.elements.push(
+            (elementFactory, origin) => elementFactory.polygon(this.points.map(p => p.toAbsolute(origin))));
     }
 }
 

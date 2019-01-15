@@ -1,9 +1,10 @@
-class CubicBezier {
+const Figure = require('./figure');
+
+class CubicBezier extends Figure {
     constructor(points) {
-        this.points = points;
-        this.elements = [
-            (elementFactory, origin) => elementFactory.cubicBezier(...this.points.map(p => p.toAbsolute(origin)))
-        ];
+        super(points);
+        this.elements.push(
+            (elementFactory, origin) => elementFactory.cubicBezier(...this.points.map(p => p.toAbsolute(origin))));
     }
 }
 

@@ -5,7 +5,7 @@ const Divisions = require('./divisions');
 class HorizontalLine extends Line {
     constructor(width, yIntercept, {
         fontSize = 10
-    } = 0) {
+    } = {}) {
         const points = [
             new Point(0, yIntercept),
             new Point(width, yIntercept)
@@ -28,28 +28,28 @@ class HorizontalLine extends Line {
         if (increment <= 0) return this;
 
         const y = this.points[0].y;
-        const getDivisionElementsForX = (x, elementFactory, origin) =>
-            this.getDivisionElements(
-                elementFactory,
-                origin.copy(-x, -y),
-                origin.copy(-x, -y + this.textOptions.fontSize),
-                origin.copy(-x, -y + this.textOptions.fontSize * 2),
-                x);
-
-        const getDivisionElementsForXBetween0And = (limit, elementFactory, origin) =>
-            Divisions.getIncrementsInRange(0, limit, increment)
-            .map(x => getDivisionElementsForX(x, elementFactory, origin))
-            .join('');
+        const maxX = this.points[1].x;
+        const labelOptions = {
+            fontSize: this.textOptions.fontSize,
+            textAnchor: this.textOptions.textAnchor,
+            offsetY: -1
+        };
+        const label = (increments, elementFactory, origin) => {
+            return increments
+                .reduce((acc, x) => acc.concat(...new Point(-x, y).label(-x, labelOptions).elements), [])
+                .map(f => f(elementFactory, origin)).join('\n\t');
+        };
 
         this.elements.push(
-            (elementFactory, origin) =>
-            getDivisionElementsForXBetween0And(origin.x, elementFactory, origin) +
-            getDivisionElementsForXBetween0And(origin.x - this.points[1].x, elementFactory, origin)
+            (elementFactory, origin) => label(
+                Divisions.getIncrementsInRange(0, origin.x, increment),
+                elementFactory,
+                origin),
+            (elementFactory, origin) => label(
+                Divisions.getIncrementsInRange(0, origin.x - maxX, increment),
+                elementFactory,
+                origin)
         );
-
-        if (y != 0)
-            this.elements.push((elementFactory, origin) =>
-                getDivisionElementsForX(0, elementFactory, origin));
 
         return this;
     }

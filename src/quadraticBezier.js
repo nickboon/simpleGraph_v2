@@ -1,9 +1,10 @@
-class QuadraticBezier {
+const Figure = require('./figure');
+
+class QuadraticBezier extends Figure {
     constructor(points) {
-        this.points = points;
-        this.elements = [
-            (elementFactory, origin) => elementFactory.quadraticBezier(...this.points.map(p => p.toAbsolute(origin)))
-        ];
+        super(points);
+        this.elements.push(
+            (elementFactory, origin) => elementFactory.quadraticBezier(...this.points.map(p => p.toAbsolute(origin))));
     }
 }
 

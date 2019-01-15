@@ -15,21 +15,22 @@ test('new HorizontalLine(width, yIntercept).elements(elementFactory, origin)', a
     assert.end();
 });
 
-test('new HorizintalLine(width, yIntercept).setDivisions(100).elements[1](elementfactory, origin)', assert => {
+test('new HorizintalLine(width, yIntercept).setDivisions(100).elements.map(e => e(elementfactory, origin))', assert => {
     assertEqualIgnoreWhiteSpace(
         assert,
-        new Sut(600, 300).setDivisions(100).elements[1](new Elements(), new Point()), `        
-        <textx="100"y="-280"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">-100</text>
+        new Sut(600, 300).setDivisions(100).elements.map(e => e(new Elements(), new Point())).join(''), `
+        <pathd="M0-300L600-300"stroke="undefined"opacity="undefined"/>
         <pathd="M100-300L100-290"stroke="undefined"opacity="undefined"/>
-        <textx="200"y="-280"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">-200</text>
+        <textx="100"y="-280"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">100</text>
         <pathd="M200-300L200-290"stroke="undefined"opacity="undefined"/>
-        <textx="300"y="-280"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">-300</text>
+        <textx="200"y="-280"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">200</text>
         <pathd="M300-300L300-290"stroke="undefined"opacity="undefined"/>
-        <textx="400"y="-280"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">-400</text>
+        <textx="300"y="-280"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">300</text>
         <pathd="M400-300L400-290"stroke="undefined"opacity="undefined"/>
-        <textx="500"y="-280"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">-500</text>
-        <pathd="M500-300L500-290"stroke="undefined"opacity="undefined"/>`,
-        'should return the expected element divisions.'
+        <textx="400"y="-280"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">400</text>
+        <pathd="M500-300L500-290"stroke="undefined"opacity="undefined"/>
+        <textx="500"y="-280"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">500</text>`,
+        'should return the expected labels.'
     );
     assert.end();
 });
@@ -48,11 +49,12 @@ test('new HorizintalLine(300).setDivisions(100)', assert => {
     setDivsions();
     assertEqualIgnoreWhiteSpace(
         assert,
-        setDivsions().elements[1](new Elements(), new Point()), `
-        <textx="100"y="20"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">-100</text>
+        setDivsions().elements.map(e => e(new Elements(), new Point())).join(''), `
+        <pathd="M00L3000"stroke="undefined"opacity="undefined"/>
         <pathd="M1000L10010"stroke="undefined"opacity="undefined"/>
-        <textx="200"y="20"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">-200</text>
-        <pathd="M2000L20010"stroke="undefined"opacity="undefined"/>`,
+        <textx="100"y="20"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">100</text>
+        <pathd="M2000L20010"stroke="undefined"opacity="undefined"/>
+        <textx="200"y="20"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">200</text>`,
         'should be idempotent.'
     );
     assert.end();
@@ -63,9 +65,12 @@ test('new HorizintalLine(300, 100).setDivisions(100)', assert => {
     setDivisions();
     assertEqualIgnoreWhiteSpace(
         assert,
-        setDivisions().elements[2](new Elements, new Point()), `
-        <textx="0"y="-80"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">0</text>
-        <pathd="M0-100L0-90"stroke="undefined"opacity="undefined"/>`,
+        setDivisions().elements.map(e => e(new Elements(), new Point())).join(''), `
+        <pathd="M0-100L300-100"stroke="undefined"opacity="undefined"/>
+        <pathd="M100-100L100-90"stroke="undefined"opacity="undefined"/>
+        <textx="100"y="-80"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">100</text>
+        <pathd="M200-100L200-90"stroke="undefined"opacity="undefined"/>
+        <textx="200"y="-80"fill="undefined"opacity="undefined"text-anchor="middle"font-size="10">200</text>`,
         'should be include a mark at origin.'
     );
     assert.end();
