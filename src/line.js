@@ -1,10 +1,10 @@
 const Figure = require('./figure');
 
 class Line extends Figure {
-    constructor(points) {
-        super(points);
+    constructor(points, colour, opacity) {
+        super(points, colour, opacity);
         this.elements.push(
-            (elementFactory, origin) => elementFactory.line(this.points[0].toAbsolute(origin), this.points[1].toAbsolute(origin))
+            (elementFactory, origin) => elementFactory.line(this.points[0].toAbsolute(origin), this.points[1].toAbsolute(origin), this.colour, this.opacity)
         );
     }
 
@@ -25,12 +25,6 @@ class Line extends Figure {
             x: this.x / this.length,
             y: this.y / this.length
         };
-    }
-
-    getDivisionElements(elementFactory, point, offsetPoint, textPoint, text) {
-        // return `
-        // ${elementFactory.text(text, textPoint, this.textOptions)}
-        // ${elementFactory.line(point, offsetPoint)}`;
     }
 }
 

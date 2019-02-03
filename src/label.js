@@ -4,7 +4,9 @@ class Label {
         offsetY,
         fontSize,
         textAnchor,
-        radius
+        radius,
+        colour,
+        opacity
     }) {
         this.text = text;
         this.points = points;
@@ -13,6 +15,8 @@ class Label {
         this.fontSize = fontSize;
         this.textAnchor = textAnchor || this.defaultTextAnchorForOffset;
         this.radius = radius;
+        this.colour = colour;
+        this.opacity = opacity;
         this.elements = [];
         this.setCross();
     }
@@ -21,11 +25,15 @@ class Label {
         this.text = text;
         const fontSize = this.fontSize;
         const textAnchor = this.textAnchor;
+        const colour = this.colour;
+        const opacity = this.opacity;
         this.elements.push((elementFactory, origin) => elementFactory.text(
             this.text,
             this.points[0].copy(this.offsetX, this.offsetY).toAbsolute(origin), {
                 fontSize,
-                textAnchor
+                textAnchor,
+                colour,
+                opacity
             }
         ));
     }
@@ -50,9 +58,13 @@ class Label {
         if (y < 0 && this.textAnchor == 'middle')
             this.offsetY -= this.fontSize;
 
+        const colour = this.colour;
+        const opacity = this.opacity;
         this.elements.push((elementFactory, origin) => elementFactory.line(
             this.points[0].toAbsolute(origin),
-            this.points[0].copy(x, y).toAbsolute(origin)
+            this.points[0].copy(x, y).toAbsolute(origin),
+            colour,
+            opacity
         ));
     }
 
@@ -67,9 +79,19 @@ class Label {
             this.offsetX = r;
 
         const point = this.points[0];
+        const colour = this.colour;
+        const opacity = this.opacity;
         this.elements.push(...[
-            (elementFactory, origin) => elementFactory.line(point.copy(r).toAbsolute(origin), point.copy(-r).toAbsolute(origin)),
-            (elementFactory, origin) => elementFactory.line(point.copy(0, r).toAbsolute(origin), point.copy(0, -r).toAbsolute(origin))
+            (elementFactory, origin) => elementFactory.line(
+                point.copy(r).toAbsolute(origin),
+                point.copy(-r).toAbsolute(origin),
+                colour,
+                opacity),
+            (elementFactory, origin) => elementFactory.line(
+                point.copy(0, r).toAbsolute(origin),
+                point.copy(0, -r).toAbsolute(origin),
+                colour,
+                opacity)
         ]);
     }
 }

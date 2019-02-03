@@ -4,19 +4,25 @@ const Divisions = require('./divisions');
 
 class HorizontalLine extends Line {
     constructor(width, yIntercept, {
-        fontSize = 10
+        fontSize = 10,
+        colour,
+        opacity
     } = {}) {
         const points = [
             new Point(0, yIntercept),
             new Point(width, yIntercept)
         ];
 
-        super(points);
+        super(points, colour, opacity);
 
         this.yIntercept = yIntercept;
         this.elements = [
             (elementFactory, origin) =>
-            elementFactory.line(this.points[0].toAbsoluteY(origin), this.points[1].toAbsoluteY(origin))
+            elementFactory.line(
+                this.points[0].toAbsoluteY(origin),
+                this.points[1].toAbsoluteY(origin),
+                this.colour,
+                this.opacity)
         ];
         this.textOptions = {
             textAnchor: 'middle',

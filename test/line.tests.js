@@ -13,11 +13,11 @@ test('new Line(points)', assert => {
     assert.end();
 });
 
-test('new Line(points).elements(elementFactory)', assert => {
+test('new Line(points, colour, opacity).elements(elementFactory)', assert => {
     assert.equal(
-        new Sut([new Point(100, 100), new Point()]).elements[0](new Elements(), new Point()),
-        '<path d="M100 -100 L0 0" stroke="undefined" opacity="undefined" />',
-        'should return a line element with the given points.'
+        new Sut([new Point(100, 100), new Point()], '#00f', .5).elements[0](new Elements(), new Point()),
+        '<path d="M100 -100 L0 0" stroke="#00f" opacity="0.5" />',
+        'should return a line element with the given points, colour and opacity.'
     );
     assert.end();
 });

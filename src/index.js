@@ -106,8 +106,8 @@ class Graph {
         return newPoint;
     }
 
-    line(pointA = this.point(), pointB = this.point()) {
-        return new Line([pointA, pointB]);
+    line(pointA = this.point(), pointB = this.point(), colour, opacity) {
+        return new Line([pointA, pointB], colour, opacity);
     }
 
     horizontalLine(y = 0) {
