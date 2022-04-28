@@ -15,3 +15,27 @@ with origin (a40, a40)
 given (r30, a0)(r30, a600)
 translated becomes
 (r30, r-40)(r30, r560)
+
+
+
+What if figures can be nested:
+
+ie 
+Figure {
+    options: {
+        defaults,
+        colour,
+        opacity,
+        isLabled,
+        etc.
+    },
+    figures: [],
+    setOptions: options => {
+        this.options = options;
+        this.figures.foreach(options => figure.setOptions)
+    },
+    draw: () => {
+        this.options = options;
+        this.figures.foreach(options => figure.setOptions)
+    }
+} 
